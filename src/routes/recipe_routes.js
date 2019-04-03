@@ -35,7 +35,7 @@ router.get('/api/recipe/:id', (req, res) => {
 
 // Create new Recipe
 router.post('/api/recipe', (req, res) => {
-    models.Recipe.create(req.body)
+    models.Recipe.create(req.body.recipe)
       .then(recipeNewFromDB => {
           res.status(201).json({ recipe: recipeNewFromDB });
       })
@@ -50,10 +50,10 @@ router.put('/api/recipe/:id', (req, res) => {
     // Call the Update function on the Recipe the database sent us back.
     // Only update the fields I care about.
     recipe.update({
-      title: req.body.title,
-      description: req.body.description,
-      image: req.body.image,
-      body: req.body.body
+      title: req.body.recipe.title,
+      description: req.body.recipe.description,
+      image: req.body.recipe.image,
+      body: req.body.recipe.body
     }).then(recipe => {
       // The database was able to update the user
       // And it sent us back an updated Record with the new information
